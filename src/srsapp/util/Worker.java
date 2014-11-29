@@ -20,7 +20,9 @@ public class Worker {
 			this.printMenu();
 			try {
 				msg = inputReader.readLine();
-				choice = Integer.parseInt(msg);
+				if(!msg.isEmpty() && msg.matches("\\d")){
+					choice = Integer.parseInt(msg);
+				}
 			} catch (IOException e) {
 				System.out.println("Unable to read the input!");
 				System.exit(0);
@@ -58,7 +60,11 @@ public class Worker {
 			case 8:
 				ch = new DeleteStudentChoice(inputReader, connection);
 				ch.processUserInput();
+				break;
+			case 9:
+				break;
 			default:
+				System.out.println("Invalid Choice!! Please enter a valid Choice!");
 				break;
 			}
 		}
