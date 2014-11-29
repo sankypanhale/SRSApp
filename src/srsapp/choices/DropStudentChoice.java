@@ -4,25 +4,19 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import oracle.jdbc.internal.OracleTypes;
-import oracle.jdbc.oracore.OracleType;
-import srsapp.util.ChoiceI;
+import srsapp.util.ChoiceAbstract;
 
-public class DropStudentChoice implements ChoiceI {
-
-	private BufferedReader input;
-	private Connection conn;
+public class DropStudentChoice extends ChoiceAbstract{
 	
 	public DropStudentChoice(BufferedReader in, Connection c) {
-		input = in;
-		conn = c;
+		this.setInput(in);
+		this.setConn(c);
 	}
 	@Override
 	public void processUserInput() {
-		// TODO Auto-generated method stub
 		String sid = getStudentIdFromUser();
 		String class_id = getClassIdFromUser();
 		dropStudentInClass(sid, class_id);

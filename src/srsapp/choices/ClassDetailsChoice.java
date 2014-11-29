@@ -9,16 +9,13 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
 import oracle.jdbc.OracleTypes;
-import srsapp.util.ChoiceI;
+import srsapp.util.ChoiceAbstract;
 
-public class ClassDetailsChoice implements ChoiceI{
-
-	private BufferedReader input;
-	private Connection conn;
+public class ClassDetailsChoice extends ChoiceAbstract{
 	
 	public ClassDetailsChoice(BufferedReader in, Connection connIn) {
-		input = in;
-		conn = connIn;
+		this.setInput(in);
+		this.setConn(connIn);
 	}
 	@Override
 	public void processUserInput() {
@@ -47,7 +44,6 @@ public class ClassDetailsChoice implements ChoiceI{
 		} catch (SQLException e) {
 			String ex = e.getLocalizedMessage().split("\n")[0].split(": ")[1];
 			System.out.println(ex);
-			System.exit(0);
 		}
 	}
 	public String getUserInput() {

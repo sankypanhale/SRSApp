@@ -9,15 +9,13 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
 import oracle.jdbc.OracleTypes;
-import srsapp.util.ChoiceI;
+import srsapp.util.ChoiceAbstract;
 
-public class DisplayTableChoice implements ChoiceI{
+public class DisplayTableChoice extends ChoiceAbstract{
 	
-	private BufferedReader input;
-	private Connection conn;
 	public DisplayTableChoice(BufferedReader in, Connection c){
-		input = in;
-		conn = c;
+		this.setInput(in);
+		this.setConn(c);
 	}
 	
 	public void displaySubmenu(){
@@ -82,7 +80,6 @@ public class DisplayTableChoice implements ChoiceI{
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("SQL exception caught during printTuples()!");
-			System.exit(0);
 		} 
 	}
 

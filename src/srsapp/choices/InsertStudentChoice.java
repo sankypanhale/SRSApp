@@ -5,17 +5,16 @@ import java.io.IOException;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
-import srsapp.util.ChoiceI;
+
+import srsapp.util.ChoiceAbstract;
 import srsapp.util.StudentInfo;
 
-public class InsertStudentChoice implements ChoiceI{
+public class InsertStudentChoice extends ChoiceAbstract{
 
-	private BufferedReader input;
-	private Connection conn;
 	private StudentInfo student;
 	public InsertStudentChoice(BufferedReader in, Connection c){
-		input = in;
-		conn = c;
+		this.setInput(in);
+		this.setConn(c);
 	}
 	
 	@Override
@@ -40,7 +39,6 @@ public class InsertStudentChoice implements ChoiceI{
 		 }catch(SQLException e){
 			 String ex = e.getLocalizedMessage().split("\n")[0].split(": ")[1];
 			 System.out.println(ex);
-			 System.exit(0);
 		 }
 	}
 	public StudentInfo getStudentInfoFromUser(){

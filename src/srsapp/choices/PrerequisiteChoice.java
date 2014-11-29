@@ -6,18 +6,14 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import oracle.jdbc.OracleTypes;
-import srsapp.util.ChoiceI;
+import srsapp.util.ChoiceAbstract;
 
-public class PrerequisiteChoice implements ChoiceI {
+public class PrerequisiteChoice extends ChoiceAbstract{
 
-	private BufferedReader input;
-	private Connection conn;
-	
 	public PrerequisiteChoice(BufferedReader in, Connection c) {
-		input = in;
-		conn = c;
+		this.setInput(in);
+		this.setConn(c);
 	}
 	@Override
 	public void processUserInput() {

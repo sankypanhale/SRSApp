@@ -6,16 +6,13 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import srsapp.util.ChoiceI;
+import srsapp.util.ChoiceAbstract;
 
-public class EnrollStudentChoice implements ChoiceI {
+public class EnrollStudentChoice extends ChoiceAbstract{
 
-	private BufferedReader input;
-	private Connection conn;
-	
 	public EnrollStudentChoice(BufferedReader in, Connection c) {
-		input = in;
-		conn = c;
+		this.setInput(in);
+		this.setConn(c);
 	}
 	@Override
 	public void processUserInput() {
@@ -36,7 +33,6 @@ public class EnrollStudentChoice implements ChoiceI {
 		} catch (SQLException e) {
 			String ex = e.getLocalizedMessage().split("\n")[0].split(": ")[1];
 			System.out.println(ex);
-			
 		}
 	}
 	public String getClassIdFromUser() {
