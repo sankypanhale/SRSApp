@@ -3,7 +3,10 @@ package srsapp.util;
 import java.io.BufferedReader;
 import java.sql.Connection;
 
-public abstract class ChoiceAbstract {
+import srsapp.ui.UserInterface;
+
+@SuppressWarnings("serial")
+public abstract class ChoiceAbstract extends UserInterface {
 
 	protected BufferedReader input;
 	protected Connection conn;

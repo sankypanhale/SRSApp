@@ -1,18 +1,28 @@
 package srsapp.choices;
 
+import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.Vector;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 import oracle.jdbc.OracleTypes;
 import srsapp.util.ChoiceAbstract;
 
+@SuppressWarnings("serial")
 public class DisplayTableChoice extends ChoiceAbstract{
 	
+	private int num_col;
 	public DisplayTableChoice(BufferedReader in, Connection c){
 		this.setInput(in);
 		this.setConn(c);
@@ -24,39 +34,105 @@ public class DisplayTableChoice extends ChoiceAbstract{
 	
 	@Override
 	public void processUserInput(){
-		String userInput;
-		int choice = 0;
-		displaySubmenu();
-		try {
-			userInput = input.readLine();
-			choice = Integer.parseInt(userInput);
-		} catch (IOException e) {
-			System.out.println("Unable to read the input!");
-		}
-		switch(choice){
+
+		JButton jbStudents, jbEnrollments, jbClasses, jbCourses, jbPrerequisites, jbLogs, jbExit;
+		setTitle("Student Registation System");
+		getContentPane().setLayout(null);
 		
-		case 1:
-			printTuples("students");
-			break;
-		case 2:
-			printTuples("enrollments");
-			break;
-		case 3:
-			printTuples("classes");
-			break;
-		case 4:
-			printTuples("courses");
-			break;
-		case 5:
-			printTuples("prereq");
-			break;
-		case 6:
-			printTuples("logs");
-			break;
-		default:
-			System.out.println("Invalid Input");
-			break;
-		}
+		jbStudents = new JButton("Students");
+		jbStudents.setSize(150,30);
+		jbStudents.setLocation(125, 20);
+		add(jbStudents);
+		
+		jbEnrollments = new JButton("Enrollments");
+		jbEnrollments.setSize(150,30);
+		jbEnrollments.setLocation(125, 70);
+		add(jbEnrollments);
+		
+		jbClasses = new JButton("Classes");
+		jbClasses.setSize(150,30);
+		jbClasses.setLocation(125, 120);
+		add(jbClasses);
+		
+		jbCourses = new JButton("Courses");
+		jbCourses.setSize(150,30);
+		jbCourses.setLocation(125, 170);
+		add(jbCourses);
+		
+		jbPrerequisites = new JButton("Prerequisites");
+		jbPrerequisites.setSize(150,30);
+		jbPrerequisites.setLocation(125, 220);
+		add(jbPrerequisites);
+		
+		jbLogs = new JButton("Logs");
+		jbLogs.setSize(150,30);
+		jbLogs.setLocation(125, 270);
+		add(jbLogs);
+		
+		jbExit = new JButton("Back");
+		jbExit.setSize(150,30);
+		jbExit.setLocation(125, 420);
+		add(jbExit);
+		
+		jbStudents.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				printTuples("students");
+			}
+		});
+		
+		jbEnrollments.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				printTuples("enrollments");
+			}
+		});
+
+		jbClasses.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				printTuples("classes");
+			}
+		});
+
+		jbCourses.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				printTuples("courses");
+			}
+		});
+
+		jbPrerequisites.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				printTuples("prereq");
+			}
+		});
+
+		jbLogs.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				printTuples("logs");
+			}
+		});
+
+		jbExit.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				dispose();
+			}
+		});
+		
+		setLocation(450,130);
+		setSize(400,500);
+		setVisible(true);
 	}
 
 	public void printTuples(String tableName) {
@@ -67,16 +143,28 @@ public class DisplayTableChoice extends ChoiceAbstract{
 	        cs.execute();
 	        ResultSet rs = (ResultSet)cs.getObject(1);
 	        ResultSetMetaData rsmd = rs.getMetaData();
-	        printColumnTitles(rsmd);
-	        int num_col = rsmd.getColumnCount();
-	        
+	        num_col = rsmd.getColumnCount();
+	        JFrame resultFrame = new JFrame();
+	        Vector<String> columnNames = new Vector<String>();
+	        for(int i = 1; i<=num_col; i++){
+	        	columnNames.addElement(rsmd.getColumnLabel(i));
+			}
+	        Vector<Vector<String>> rowData = new Vector<Vector<String>>();
 	        while(rs.next()){
+	        	Vector<String> v = new Vector<String>();
 	        	for(int i = 1;i<=num_col;i++){
-	        		System.out.format("%-20s", rs.getString(i));
+	        		v.addElement(rs.getString(i));
 	        	}
-	        	System.out.print("\n");
+	        	rowData.addElement(v);
 	        }
 	        cs.close();
+	        JTable resultTable = new JTable(rowData, columnNames);
+			JScrollPane scrollPane = new JScrollPane(resultTable);
+			resultFrame.add(scrollPane, BorderLayout.CENTER);
+			resultFrame.setFocusable(true);
+			resultFrame.setLocation(350, 150);
+			resultFrame.setSize(600,400);
+			resultFrame.setVisible(true);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("SQL exception caught during printTuples()!");
@@ -89,5 +177,9 @@ public class DisplayTableChoice extends ChoiceAbstract{
 			System.out.format("%-20s", rsmdIn.getColumnLabel(i));
 		}
 		System.out.println("\n");
+	}
+
+	@Override
+	public void setFields() {		
 	}
 }
