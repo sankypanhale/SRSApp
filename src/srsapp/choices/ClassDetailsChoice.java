@@ -1,6 +1,7 @@
 package srsapp.choices;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
@@ -51,7 +52,6 @@ public class ClassDetailsChoice extends ChoiceAbstract{
 			cs.execute();
 			ResultSet rs = (ResultSet)cs.getObject(2);
 			ResultSetMetaData rsmd = rs.getMetaData();
-			printColumnTitles(rsmd);
 			num_col = rsmd.getColumnCount();
 			while(rs.next()){
 				for(int i = 1;i<=num_col;i++){
@@ -113,11 +113,11 @@ public class ClassDetailsChoice extends ChoiceAbstract{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				printClassInfo(jtClassid.getText());
+				jtClassid.setText("");
 				//do not continue if there is an exception in printClassInfo
 				if(jlmsg.isVisible()){
 					return;
 				}
-				jtClassid.setText("");
 				JFrame resultFrame = new JFrame();
 				Vector<Vector<String>> rowData = new Vector<Vector<String>>();
 				ListIterator<String> i = outputList.listIterator();
@@ -134,10 +134,12 @@ public class ClassDetailsChoice extends ChoiceAbstract{
 				columnNames.addElement("SID");
 				columnNames.addElement("FIRSTNAME");
 				JTable resultTable = new JTable(rowData, columnNames);
+				resultTable.getTableHeader().setBackground(Color.BLUE);
+		        resultTable.getTableHeader().setForeground(Color.white);
 				JScrollPane scrollPane = new JScrollPane(resultTable);
 				resultFrame.add(scrollPane, BorderLayout.CENTER);
 				resultFrame.setFocusable(true);
-				resultFrame.setLocation(550, 150);
+				resultFrame.setLocation(450, 150);
 				resultFrame.setSize(400,400);
 				resultFrame.setVisible(true);
 				outputList.clear();
@@ -149,16 +151,7 @@ public class ClassDetailsChoice extends ChoiceAbstract{
 		setVisible(true);
 	}
 
-	public void printColumnTitles(ResultSetMetaData rsmdIn) throws SQLException {
-		int num_col = rsmdIn.getColumnCount();
-		for(int i = 1; i<=num_col; i++){
-			System.out.format("%-20s", rsmdIn.getColumnLabel(i));
-		}
-		System.out.println("\n");
-	}
 	@Override
 	public void setFields() {
-		// TODO Auto-generated method stub
-		
 	}
 }

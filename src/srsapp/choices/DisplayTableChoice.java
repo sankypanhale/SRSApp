@@ -1,6 +1,7 @@
 package srsapp.choices;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
@@ -15,6 +16,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 
 import oracle.jdbc.OracleTypes;
 import srsapp.util.ChoiceAbstract;
@@ -158,7 +161,14 @@ public class DisplayTableChoice extends ChoiceAbstract{
 	        	rowData.addElement(v);
 	        }
 	        cs.close();
+	        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+	        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
 	        JTable resultTable = new JTable(rowData, columnNames);
+	        for(int i = 0; i < resultTable.getColumnCount(); i++){
+	        	resultTable.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+	        }
+	        resultTable.getTableHeader().setBackground(Color.BLUE);
+	        resultTable.getTableHeader().setForeground(Color.white);
 			JScrollPane scrollPane = new JScrollPane(resultTable);
 			resultFrame.add(scrollPane, BorderLayout.CENTER);
 			resultFrame.setFocusable(true);
@@ -174,9 +184,9 @@ public class DisplayTableChoice extends ChoiceAbstract{
 	public void printColumnTitles(ResultSetMetaData rsmdIn) throws SQLException {
 		int num_col = rsmdIn.getColumnCount();
 		for(int i = 1; i<=num_col; i++){
-			System.out.format("%-20s", rsmdIn.getColumnLabel(i));
+		//	System.out.format("%-20s", rsmdIn.getColumnLabel(i));
 		}
-		System.out.println("\n");
+		//System.out.println("\n");
 	}
 
 	@Override

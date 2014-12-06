@@ -1,6 +1,7 @@
 package srsapp.choices;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
@@ -19,6 +20,8 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 
 import oracle.jdbc.OracleTypes;
 import srsapp.util.ChoiceAbstract;
@@ -117,11 +120,11 @@ public class PrerequisiteChoice extends ChoiceAbstract{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				printPrerequisites(jtDept.getText(), jtCourse.getText());
+				jtDept.setText("");
+				jtCourse.setText("");
 				if(jlmsg.isVisible()){
 					return;
 				}
-				jtDept.setText("");
-				jtCourse.setText("");
 				JFrame resultFrame = new JFrame();
 				Vector<Vector<String>> rowData = new Vector<Vector<String>>();
 				ListIterator<String> i = outputList.listIterator();
@@ -133,6 +136,13 @@ public class PrerequisiteChoice extends ChoiceAbstract{
 				Vector<String> columnNames = new Vector<String>();
 				columnNames.addElement("Prerequisites");
 				JTable resultTable = new JTable(rowData, columnNames);
+				resultTable.getTableHeader().setBackground(Color.BLUE);
+		        resultTable.getTableHeader().setForeground(Color.white);
+		        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+		        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+		        for(int j = 0; j < resultTable.getColumnCount(); j++){
+		        	resultTable.getColumnModel().getColumn(j).setCellRenderer(centerRenderer);
+		        }
 				JScrollPane scrollPane = new JScrollPane(resultTable);
 				resultFrame.add(scrollPane, BorderLayout.CENTER);
 				resultFrame.setFocusable(true);
@@ -150,8 +160,5 @@ public class PrerequisiteChoice extends ChoiceAbstract{
 	
 	@Override
 	public void setFields() {
-		// TODO Auto-generated method stub
-		
 	}
-
 }

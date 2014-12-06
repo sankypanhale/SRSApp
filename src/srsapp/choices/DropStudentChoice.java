@@ -30,7 +30,7 @@ public class DropStudentChoice extends ChoiceAbstract{
 	public void dropStudentInClass(String sid, String class_id) {
 		CallableStatement cs;
 		jlmsg.setVisible(false);
-		String mymsg = "Student is enrolled in class.";
+		String mymsg = "Student is dropped from class.";
 		try {
 			cs = conn.prepareCall("begin SRSJDBC.drop_student(?, ?, ?, ?); end;");
 			cs.setString(1, sid);

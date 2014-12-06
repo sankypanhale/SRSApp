@@ -1,6 +1,7 @@
 package srsapp.choices;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
@@ -20,6 +21,8 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 
 import oracle.jdbc.OracleTypes;
 import srsapp.util.ChoiceAbstract;
@@ -51,15 +54,12 @@ public class EnrolledCoursesChoice extends ChoiceAbstract {
 			ResultSet rs = (ResultSet)cs.getObject(2);
 			ResultSetMetaData rsmd = rs.getMetaData();
 			num_col = rsmd.getColumnCount();
-			printColumnTitles(rsmd);
-			
 			while(rs.next()){
 				for(int i = 1;i<=num_col;i++){
 //					System.out.format("%-20s", rs.getString(i));
 					outputList.add(rs.getString(i));
 				}
 //				System.out.print("\n");
-				
 			}
 			cs.close();
 		} catch (SQLException e) {
@@ -133,11 +133,18 @@ public class EnrolledCoursesChoice extends ChoiceAbstract {
 				columnNames.addElement("FIRSTNAME");
 				columnNames.addElement("DEPT_CODE");
 				columnNames.addElement("COURSE#");
-				JTable resultTable = new JTable(rowData, columnNames);
+				DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+		        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+		        JTable resultTable = new JTable(rowData, columnNames);
+		        for(int j = 0; j < resultTable.getColumnCount(); j++){
+		        	resultTable.getColumnModel().getColumn(j).setCellRenderer(centerRenderer);
+		        }
+				resultTable.getTableHeader().setBackground(Color.BLUE);
+		        resultTable.getTableHeader().setForeground(Color.white);
 				JScrollPane scrollPane = new JScrollPane(resultTable);
 				resultFrame.add(scrollPane, BorderLayout.CENTER);
 				resultFrame.setFocusable(true);
-				resultFrame.setLocation(550, 150);
+				resultFrame.setLocation(450, 150);
 				resultFrame.setSize(400,400);
 				resultFrame.setVisible(true);
 				outputList.clear();
@@ -146,14 +153,6 @@ public class EnrolledCoursesChoice extends ChoiceAbstract {
 		setLocation(450,150);
 		setSize(400,400);
 		setVisible(true);
-	}
-	
-	private void printColumnTitles(ResultSetMetaData rsmdIn) throws SQLException {
-		int num_col = rsmdIn.getColumnCount();
-		for(int i = 1; i<=num_col; i++){
-			System.out.format("%-20s", rsmdIn.getColumnLabel(i));
-		}
-		System.out.println("\n");
 	}
 	@Override
 	public void setFields() {

@@ -30,48 +30,48 @@ public class WorkerForm extends UserInterface{
 		
 		
 		jbDisplayTable = new JButton("Show Tables");
-		jbDisplayTable.setSize(150,30);
-		jbDisplayTable.setLocation(125, 20);
+		jbDisplayTable.setSize(200,30);
+		jbDisplayTable.setLocation(100, 20);
 		add(jbDisplayTable);
 		
 		jbInsertStudent = new JButton("Insert Student");
-		jbInsertStudent.setSize(150,30);
-		jbInsertStudent.setLocation(125, 70);
+		jbInsertStudent.setSize(200,30);
+		jbInsertStudent.setLocation(100, 70);
 		add(jbInsertStudent);
 		
 		jbShowCoursesForStudent = new JButton("Show Courses for Student");
-		jbShowCoursesForStudent.setSize(150,30);
-		jbShowCoursesForStudent.setLocation(125, 120);
+		jbShowCoursesForStudent.setSize(200,30);
+		jbShowCoursesForStudent.setLocation(100, 120);
 		add(jbShowCoursesForStudent);
 		
 		jbShowPreq = new JButton("Show Prerequisites Courses");
-		jbShowPreq.setSize(150,30);
-		jbShowPreq.setLocation(125, 170);
+		jbShowPreq.setSize(200,30);
+		jbShowPreq.setLocation(100, 170);
 		add(jbShowPreq);
 		
 		jbShowClassDetails = new JButton("Show Class Details");
-		jbShowClassDetails.setSize(150,30);
-		jbShowClassDetails.setLocation(125, 220);
+		jbShowClassDetails.setSize(200,30);
+		jbShowClassDetails.setLocation(100, 220);
 		add(jbShowClassDetails);
 		
 		jbEnrollStudent = new JButton("Enroll Student");
-		jbEnrollStudent.setSize(150,30);
-		jbEnrollStudent.setLocation(125, 270);
+		jbEnrollStudent.setSize(200,30);
+		jbEnrollStudent.setLocation(100, 270);
 		add(jbEnrollStudent);
 		
 		jbDropStudent = new JButton("Drop Student from class");
-		jbDropStudent.setSize(150,30);
-		jbDropStudent.setLocation(125, 320);
+		jbDropStudent.setSize(200,30);
+		jbDropStudent.setLocation(100, 320);
 		add(jbDropStudent);
 		
 		jbDeleteStudent = new JButton("Delete Student");
-		jbDeleteStudent.setSize(150,30);
-		jbDeleteStudent.setLocation(125, 370);
+		jbDeleteStudent.setSize(200,30);
+		jbDeleteStudent.setLocation(100, 370);
 		add(jbDeleteStudent);
 		
 		jbExit = new JButton("Exit");
-		jbExit.setSize(150,30);
-		jbExit.setLocation(125, 420);
+		jbExit.setSize(100,30);
+		jbExit.setLocation(150, 420);
 		add(jbExit);
 		
 		

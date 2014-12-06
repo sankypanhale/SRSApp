@@ -170,7 +170,7 @@ public class InsertStudentChoice extends ChoiceAbstract{
 					info=new JLabel("Error in adding student");
 					
 				}
-				info.setSize(100, 50);
+				info.setSize(150, 90);
 				info.setLocation(150,180);
 				popFrame.add(info);
 				popFrame.setFocusable(true);
@@ -183,7 +183,6 @@ public class InsertStudentChoice extends ChoiceAbstract{
 		setLocation(450,150);
 		setSize(400,400);
 		setVisible(true);
-
 		return myStudent;
 	}
 

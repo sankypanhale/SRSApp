@@ -16,11 +16,9 @@ import srsapp.driver.MainDriver;
 public class LoginForm extends UserInterface {
 
 	public LoginForm() {
-		// TODO Auto-generated constructor stub
 		setFields();
 	}
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		new LoginForm();
 	}
 
@@ -75,7 +73,7 @@ public class LoginForm extends UserInterface {
 				Connection conn = null;
 				MainDriver mainobj = new MainDriver();
 				//conn = mainobj.mainMethod(jtStuUsername.getText(),jtStuPassword.getText());
-				conn = mainobj.mainMethod("spanhal1","Shirdi123");
+				conn = mainobj.mainMethod("cbhasme1","Kratos123");
 				if(conn == null)
 				{
 					//dispose();
