@@ -5,19 +5,28 @@ import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+
 import srsapp.util.Worker;
 
 @SuppressWarnings("serial")
+/** 
+ * This class will show all the primary options available 
+ * */
 public class WorkerForm extends UserInterface{
 
 	private Connection connection;
+	//constructor
 	public WorkerForm(Connection conn) {
 		// TODO Auto-generated constructor stub
 		setConnection(conn);
 		setFields();
 	}
+	/**
+	 * This method will create the frame and set all labels and buttons 
+	 * */
 	@Override
 	public void setFields() {
 		// TODO Auto-generated method stub
@@ -28,6 +37,8 @@ public class WorkerForm extends UserInterface{
 		setTitle("Student Registation System");
 		getContentPane().setLayout(null);
 		
+		ImageIcon img = new ImageIcon("appicon.png");
+		setIconImage(img.getImage());
 		
 		jbDisplayTable = new JButton("Show Tables");
 		jbDisplayTable.setSize(200,30);

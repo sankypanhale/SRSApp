@@ -15,15 +15,22 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Vector;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 
 import oracle.jdbc.OracleTypes;
 import srsapp.util.ChoiceAbstract;
+
+/**
+ * This class will show the class details
+ * */
 
 @SuppressWarnings("serial")
 public class ClassDetailsChoice extends ChoiceAbstract{
@@ -41,7 +48,9 @@ public class ClassDetailsChoice extends ChoiceAbstract{
 	public void processUserInput() {
 		getUserInput();
 	}
-	
+	/**
+	 * This method will class_id get the records from the database
+	 * */
 	public void printClassInfo(String classIn){
 		CallableStatement cs;
 		jlmsg.setVisible(false);
@@ -67,12 +76,19 @@ public class ClassDetailsChoice extends ChoiceAbstract{
 			jlmsg.setVisible(true);
 		}
 	}
+	/**
+	 * This method will create the frame and set all labels,textbox
+	 * and buttons 
+	 * */
 	public void getUserInput() {
 		JButton jbSubmit,jbCancel;
 		final JTextField jtClassid;
 		JLabel jlClassid;
 		setTitle("Student Registation System");
 		getContentPane().setLayout(null);
+		
+		ImageIcon img = new ImageIcon("appicon.png");
+		setIconImage(img.getImage());
 		
 		jlClassid = new JLabel("Enter Classid: ");
 		jlClassid.setSize(100,20);
@@ -100,6 +116,7 @@ public class ClassDetailsChoice extends ChoiceAbstract{
 		jbCancel.setLocation(180, 150);
 		add(jbCancel);
 		
+		//action listener on Cancel Button click
 		jbCancel.addActionListener(new ActionListener() {
 			
 			@Override
@@ -108,6 +125,7 @@ public class ClassDetailsChoice extends ChoiceAbstract{
 			}
 		});
 		
+		//action listener on Submit Button click
 		jbSubmit.addActionListener(new ActionListener() {
 			
 			@Override
@@ -133,7 +151,12 @@ public class ClassDetailsChoice extends ChoiceAbstract{
 				columnNames.addElement("COURSE_TITLE");
 				columnNames.addElement("SID");
 				columnNames.addElement("FIRSTNAME");
-				JTable resultTable = new JTable(rowData, columnNames);
+				DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+		        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+		        JTable resultTable = new JTable(rowData, columnNames);
+		        for(int j = 0; j < resultTable.getColumnCount(); j++){
+		        	resultTable.getColumnModel().getColumn(j).setCellRenderer(centerRenderer);
+		        }
 				resultTable.getTableHeader().setBackground(Color.BLUE);
 		        resultTable.getTableHeader().setForeground(Color.white);
 				JScrollPane scrollPane = new JScrollPane(resultTable);

@@ -12,6 +12,7 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.Vector;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
@@ -22,6 +23,9 @@ import javax.swing.table.DefaultTableCellRenderer;
 import oracle.jdbc.OracleTypes;
 import srsapp.util.ChoiceAbstract;
 
+/**
+* This class will show all the choices of show tables
+* */
 @SuppressWarnings("serial")
 public class DisplayTableChoice extends ChoiceAbstract{
 	
@@ -35,12 +39,20 @@ public class DisplayTableChoice extends ChoiceAbstract{
 		System.out.println("1.Show Students\n2.Show Enrollments\n3.Show Classes\n4.Show Courses\n5.Show Prerequisites\n6.Show Logs");
 	}
 	
+	/**
+	 * This method will create the frame and set all labels,textbox
+	 * and buttons 
+	 * */
 	@Override
 	public void processUserInput(){
 
 		JButton jbStudents, jbEnrollments, jbClasses, jbCourses, jbPrerequisites, jbLogs, jbExit;
 		setTitle("Student Registation System");
 		getContentPane().setLayout(null);
+		
+		
+		ImageIcon img = new ImageIcon("appicon.png");
+		setIconImage(img.getImage());
 		
 		jbStudents = new JButton("Students");
 		jbStudents.setSize(150,30);

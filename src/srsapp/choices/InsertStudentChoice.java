@@ -7,6 +7,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -15,6 +16,9 @@ import javax.swing.JTextField;
 import srsapp.util.ChoiceAbstract;
 import srsapp.util.StudentInfo;
 
+/**
+* This class will insert new student to database
+* */
 @SuppressWarnings("serial")
 public class InsertStudentChoice extends ChoiceAbstract{
 	JLabel jlmsg;
@@ -30,6 +34,10 @@ public class InsertStudentChoice extends ChoiceAbstract{
 		student = getStudentInfoFromUser();
 	}
 
+	/**
+	 * This method will take firstname,lastname,status,gpa and email
+	 * and insert the records into the database
+	 * */
 	public void insertStudentToDatabase(){
 		try {
 			jlmsg.setVisible(false);
@@ -51,6 +59,11 @@ public class InsertStudentChoice extends ChoiceAbstract{
 			jlmsg.setVisible(true);
 		}
 	}
+	
+	/**
+	 * This method will create the frame and set all labels,textbox
+	 * and buttons 
+	 * */
 	public StudentInfo getStudentInfoFromUser(){
 		@SuppressWarnings("rawtypes")
 		final JComboBox jcStatus;
@@ -61,6 +74,9 @@ public class InsertStudentChoice extends ChoiceAbstract{
 		setTitle("Student Registation System");
 		getContentPane().setLayout(null);
 
+		ImageIcon img = new ImageIcon("appicon.png");
+		setIconImage(img.getImage());
+		
 		jlmsg.setSize(200,50);
 		jlmsg.setLocation(50,400);
 		jlmsg.setVisible(false);

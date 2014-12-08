@@ -5,8 +5,14 @@ import java.sql.SQLException;
 
 import oracle.jdbc.pool.OracleDataSource;
 
+/** 
+ * This class creates an connection
+ * */
 public class MainDriver {
 
+	/** 
+	 * This method accepts username and password and returns the created connection
+	 * */
 	public Connection mainMethod(String userName, String passWord) {
 		
 		//connection to Oracle Server

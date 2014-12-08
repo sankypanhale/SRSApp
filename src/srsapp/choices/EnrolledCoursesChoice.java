@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Vector;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -27,6 +28,9 @@ import javax.swing.table.DefaultTableCellRenderer;
 import oracle.jdbc.OracleTypes;
 import srsapp.util.ChoiceAbstract;
 
+/**
+* This class will show all the enrolled classes for the student 
+* */
 @SuppressWarnings("serial")
 public class EnrolledCoursesChoice extends ChoiceAbstract {
 	private JLabel jlmsg;
@@ -43,6 +47,9 @@ public class EnrolledCoursesChoice extends ChoiceAbstract {
 		getUserInput();
 	}
 	
+	/**
+	 * This method will take sid get the records from the database
+	 * */
 	public void printStudentCoursesInfo(String student){
 		CallableStatement cs;
 		jlmsg.setVisible(false);
@@ -68,12 +75,20 @@ public class EnrolledCoursesChoice extends ChoiceAbstract {
 			jlmsg.setVisible(true);
 		}
 	}
+	
+	/**
+	 * This method will create the frame and set all labels,textbox
+	 * and buttons 
+	 * */
 	private void getUserInput() {
 		JButton jbSubmit,jbCancel;
 		final JTextField jtSid;
 		JLabel jlSid;
 		setTitle("Student Registation System");
 		getContentPane().setLayout(null);
+		
+		ImageIcon img = new ImageIcon("appicon.png");
+		setIconImage(img.getImage());
 		
 		jlSid = new JLabel("Enter Sid: ");
 		jlSid.setSize(100,20);
@@ -131,8 +146,8 @@ public class EnrolledCoursesChoice extends ChoiceAbstract {
 				Vector<String> columnNames = new Vector<String>();
 				columnNames.addElement("SID");
 				columnNames.addElement("FIRSTNAME");
-				columnNames.addElement("DEPT_CODE");
-				columnNames.addElement("COURSE#");
+				columnNames.addElement("COURSE");
+				columnNames.addElement("TITLE");
 				DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
 		        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
 		        JTable resultTable = new JTable(rowData, columnNames);

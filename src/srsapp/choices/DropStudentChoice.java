@@ -7,6 +7,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -14,6 +15,9 @@ import javax.swing.JTextField;
 import oracle.jdbc.internal.OracleTypes;
 import srsapp.util.ChoiceAbstract;
 
+/**
+* This class will drop student from enrollment table
+* */
 @SuppressWarnings("serial")
 public class DropStudentChoice extends ChoiceAbstract{
 	JLabel jlmsg;
@@ -27,6 +31,10 @@ public class DropStudentChoice extends ChoiceAbstract{
 		getStudentIdFromUser();
 		
 	}
+	
+	/**
+	 * This method will take sid,class_id get the drop record from the enrollments
+	 * */
 	public void dropStudentInClass(String sid, String class_id) {
 		CallableStatement cs;
 		jlmsg.setVisible(false);
@@ -60,12 +68,20 @@ public class DropStudentChoice extends ChoiceAbstract{
 		}
 	}
 	
+	/**
+	 * This method will create the frame and set all labels,textbox
+	 * and buttons 
+	 * */
 	public void getStudentIdFromUser() {
 		JButton jbSubmit,jbCancel;
 		final JTextField jtSid,jtClassid;
 		JLabel jlSid,jlClassid;
 		setTitle("Student Registation System");
 		getContentPane().setLayout(null);
+		
+		
+		ImageIcon img = new ImageIcon("appicon.png");
+		setIconImage(img.getImage());
 		
 		jlSid = new JLabel("Enter Sid: ");
 		jlSid.setSize(100,20);

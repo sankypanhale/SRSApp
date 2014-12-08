@@ -7,6 +7,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -14,6 +15,9 @@ import javax.swing.JTextField;
 import oracle.jdbc.OracleTypes;
 import srsapp.util.ChoiceAbstract;
 
+/**
+* This class will enroll student to class
+* */
 @SuppressWarnings("serial")
 public class EnrollStudentChoice extends ChoiceAbstract{
 
@@ -28,7 +32,9 @@ public class EnrollStudentChoice extends ChoiceAbstract{
 		getStudentIdFromUser();
 		
 	}
-	
+	/**
+	 * This method will take sid and class_id and enroll student in class
+	 * */
 	public void enrollStudentInClass(String sid, String class_id) {
 		CallableStatement cs;
 		jlmsg.setVisible(false);
@@ -52,12 +58,20 @@ public class EnrollStudentChoice extends ChoiceAbstract{
 			jlmsg.setVisible(true);
 		}
 	}
+	
+	/**
+	 * This method will create the frame and set all labels,textbox
+	 * and buttons 
+	 * */
 	public void getStudentIdFromUser() {
 		JButton jbSubmit,jbCancel;
 		final JTextField jtSid,jtClassid;
 		JLabel jlSid,jlClassid;
 		setTitle("Student Registation System");
 		getContentPane().setLayout(null);
+		
+		ImageIcon img = new ImageIcon("appicon.png");
+		setIconImage(img.getImage());
 		
 		jlSid = new JLabel("Enter Sid: ");
 		jlSid.setSize(100,20);
@@ -70,7 +84,7 @@ public class EnrollStudentChoice extends ChoiceAbstract{
 		add(jlClassid);
 		
 		jlmsg.setSize(200,300);
-		jlmsg.setLocation(50,200);
+		jlmsg.setLocation(50,160);
 		jlmsg.setVisible(false);
 		add(jlmsg);
 		

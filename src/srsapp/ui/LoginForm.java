@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -14,7 +15,8 @@ import srsapp.driver.MainDriver;
 
 @SuppressWarnings("serial")
 public class LoginForm extends UserInterface {
-
+	
+	//constructor
 	public LoginForm() {
 		setFields();
 	}
@@ -22,6 +24,11 @@ public class LoginForm extends UserInterface {
 		new LoginForm();
 	}
 
+	
+	/**
+	 * This method will create the frame and set all labels,textbox
+	 * and buttons 
+	 * */
 	@Override
 	public void setFields() {
 		// TODO Auto-generated method stub
@@ -32,6 +39,10 @@ public class LoginForm extends UserInterface {
 		JLabel jlStuUsername,jlStuPassword;
 		setTitle("Student Registation System");
 		getContentPane().setLayout(null);
+		
+		ImageIcon img = new ImageIcon("appicon.png");
+		setIconImage(img.getImage());
+		
 		
 		jlStuUsername = new JLabel("User Name: ");
 		jlStuUsername.setSize(100,20);
@@ -44,8 +55,8 @@ public class LoginForm extends UserInterface {
 		add(jlStuPassword);
 		
 		jlInvalid = new JLabel("Invalid Username or password");
-		jlInvalid.setSize(100,20);
-		jlInvalid.setLocation(150,180);
+		jlInvalid.setSize(200,20);
+		jlInvalid.setLocation(50,200);
 		jlInvalid.setVisible(false);
 		add(jlInvalid);
 		
@@ -66,6 +77,7 @@ public class LoginForm extends UserInterface {
 		jbStuLogin.setLocation(150, 150);
 		add(jbStuLogin);
 		
+		//action listener on Login Button click
 		jbStuLogin.addActionListener(new ActionListener() {
 			
 			@Override

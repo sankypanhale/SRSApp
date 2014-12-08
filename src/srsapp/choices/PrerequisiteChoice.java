@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Vector;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -25,7 +26,9 @@ import javax.swing.table.DefaultTableCellRenderer;
 
 import oracle.jdbc.OracleTypes;
 import srsapp.util.ChoiceAbstract;
-
+/**
+* This class will show the prerequisite for the course
+* */
 @SuppressWarnings("serial")
 public class PrerequisiteChoice extends ChoiceAbstract{
 	JLabel jlmsg;
@@ -41,6 +44,9 @@ public class PrerequisiteChoice extends ChoiceAbstract{
 		getDeptCode();
 	}
 	
+	/**
+	 * This method will take department# and course# get the records from the database
+	 * */
 	public void printPrerequisites(String dept, String course){
 		CallableStatement cs;
 		jlmsg.setVisible(false);
@@ -64,12 +70,20 @@ public class PrerequisiteChoice extends ChoiceAbstract{
 			jlmsg.setVisible(true);
 		}
 	}
+	
+	/**
+	 * This method will create the frame and set all labels,textbox
+	 * and buttons 
+	 * */
 	private void getDeptCode() {
 		JButton jbSubmit,jbCancel;
 		final JTextField jtDept,jtCourse;
 		JLabel jlDept,jlClassid;
 		setTitle("Student Registation System");
 		getContentPane().setLayout(null);
+		
+		ImageIcon img = new ImageIcon("appicon.png");
+		setIconImage(img.getImage());
 		
 		jlDept = new JLabel("Enter DepartmentName: ");
 		jlDept.setSize(100,20);
