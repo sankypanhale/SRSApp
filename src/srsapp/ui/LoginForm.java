@@ -72,8 +72,7 @@ public class LoginForm extends UserInterface {
 			public void actionPerformed(ActionEvent arg0) {
 				Connection conn = null;
 				MainDriver mainobj = new MainDriver();
-				//conn = mainobj.mainMethod(jtStuUsername.getText(),jtStuPassword.getText());
-				conn = mainobj.mainMethod("cbhasme1","Kratos123");
+				conn = mainobj.mainMethod(jtStuUsername.getText(),jtStuPassword.getText());
 				if(conn == null)
 				{
 					//dispose();

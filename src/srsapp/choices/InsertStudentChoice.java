@@ -9,7 +9,6 @@ import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
@@ -18,11 +17,12 @@ import srsapp.util.StudentInfo;
 
 @SuppressWarnings("serial")
 public class InsertStudentChoice extends ChoiceAbstract{
-
+	JLabel jlmsg;
 	private StudentInfo student;
 	public InsertStudentChoice(BufferedReader in, Connection c){
 		this.setInput(in);
 		this.setConn(c);
+		jlmsg = new JLabel();
 	}
 
 	@Override
@@ -30,9 +30,9 @@ public class InsertStudentChoice extends ChoiceAbstract{
 		student = getStudentInfoFromUser();
 	}
 
-	public int insertStudentToDatabase(){
-		int status = 0; 
+	public void insertStudentToDatabase(){
 		try {
+			jlmsg.setVisible(false);
 			CallableStatement cs = conn.prepareCall("begin SRSJDBC.insertstudent(?,?,?,?,?,?); end;");
 			cs.setString(1, student.getSid());
 			cs.setString(2, student.getFirstname());
@@ -40,16 +40,16 @@ public class InsertStudentChoice extends ChoiceAbstract{
 			cs.setString(4, student.getStatus());
 			cs.setString(5, student.getGpa());
 			cs.setString(6, student.getEmail());
-
 			// execute and retrieve the result set
 			cs.executeUpdate();
 			cs.close();
-			status = 1;
+			jlmsg.setText("Student has been Added");
+			jlmsg.setVisible(true);
 		}catch(SQLException e){
 			String ex = e.getLocalizedMessage().split("\n")[0].split(": ")[1];
-			System.out.println(ex);
+			jlmsg.setText(ex);
+			jlmsg.setVisible(true);
 		}
-		return status;
 	}
 	public StudentInfo getStudentInfoFromUser(){
 		@SuppressWarnings("rawtypes")
@@ -61,6 +61,11 @@ public class InsertStudentChoice extends ChoiceAbstract{
 		setTitle("Student Registation System");
 		getContentPane().setLayout(null);
 
+		jlmsg.setSize(200,50);
+		jlmsg.setLocation(50,400);
+		jlmsg.setVisible(false);
+		add(jlmsg);
+		
 		jlSid = new JLabel("Sid: ");
 		jlSid.setSize(100,20);
 		jlSid.setLocation(50,20);
@@ -150,38 +155,17 @@ public class InsertStudentChoice extends ChoiceAbstract{
 				myStudent.setStatus(jcStatus.getSelectedItem().toString());
 				myStudent.setGpa(jtGPA.getText());
 				myStudent.setEmail(jtEmail.getText());
-
+				insertStudentToDatabase();
 				jtSid.setText("");
 				jtFirstName.setText("");
 				jtLastName.setText("");
 				jtGPA.setText("");
 				jtEmail.setText("");
-				
-				int status = insertStudentToDatabase();
-				JFrame popFrame = new JFrame();
-				JLabel info = null;
-				if(status == 1)
-				{
-					info =new JLabel("Student added successfully..");
-					
-				}
-				else
-				{					
-					info=new JLabel("Error in adding student");
-					
-				}
-				info.setSize(150, 90);
-				info.setLocation(150,180);
-				popFrame.add(info);
-				popFrame.setFocusable(true);
-				popFrame.setLocation(570, 300);
-				popFrame.setSize(200,70);
-				popFrame.setVisible(true);
 			}
 		});
 
 		setLocation(450,150);
-		setSize(400,400);
+		setSize(400,500);
 		setVisible(true);
 		return myStudent;
 	}

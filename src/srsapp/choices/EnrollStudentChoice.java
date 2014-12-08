@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import oracle.jdbc.OracleTypes;
 import srsapp.util.ChoiceAbstract;
 
 @SuppressWarnings("serial")
@@ -31,17 +32,23 @@ public class EnrollStudentChoice extends ChoiceAbstract{
 	public void enrollStudentInClass(String sid, String class_id) {
 		CallableStatement cs;
 		jlmsg.setVisible(false);
+		String mymsg = "Student has been enrolled.";
 		try {
-			cs = conn.prepareCall("begin SRSJDBC.enroll_student(?, ?); end;");
+			cs = conn.prepareCall("begin SRSJDBC.enroll_student(?, ?, ?); end;");
 			cs.setString(1, sid);
 			cs.setString(2, class_id);
+			cs.registerOutParameter(3, OracleTypes.NUMBER);
 			cs.executeUpdate();
+			int overloadcount = cs.getInt(3);
+			if(overloadcount == 3){
+				mymsg = mymsg + " You are Overloaded!";
+			}
 			cs.close();
-			jlmsg.setText("Student has been enrolled");
+			jlmsg.setText("<html>" + mymsg + "</html>");
 			jlmsg.setVisible(true);
 		} catch (SQLException e) {
 			String ex = e.getLocalizedMessage().split("\n")[0].split(": ")[1];
-			jlmsg.setText(ex);
+			jlmsg.setText("<html>" + ex + "</html>");
 			jlmsg.setVisible(true);
 		}
 	}
@@ -62,7 +69,7 @@ public class EnrollStudentChoice extends ChoiceAbstract{
 		jlClassid.setLocation(50,100);
 		add(jlClassid);
 		
-		jlmsg.setSize(200,50);
+		jlmsg.setSize(200,300);
 		jlmsg.setLocation(50,200);
 		jlmsg.setVisible(false);
 		add(jlmsg);
