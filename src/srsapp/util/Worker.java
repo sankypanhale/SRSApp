@@ -1,7 +1,6 @@
 package srsapp.util;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.sql.Connection;
 import srsapp.choices.*;
 
@@ -9,64 +8,47 @@ public class Worker {
 
 	private Connection connection;
 	private BufferedReader inputReader;
-	public Worker(Connection conn, BufferedReader in){
+	public Worker(Connection conn){
 		setConnection(conn);
-		inputReader = in;
 	}
-	public void processInput(){
-		String msg = null;
-		int choice = 0;
-		while(choice != 9){				//exit condition
-			this.printMenu();
-			try {
-				msg = inputReader.readLine();
-				if(!msg.isEmpty() && msg.matches("\\d")){
-					choice = Integer.parseInt(msg);
-				}
-			} catch (IOException e) {
-				System.out.println("Unable to read the input!");
-				System.exit(0);
-			}
-			ChoiceAbstract ch;
-			switch(choice){
-			case 1:
-				ch = new DisplayTableChoice(inputReader,connection);
-				ch.processUserInput();
-				break;
-			case 2:
-				ch = new InsertStudentChoice(inputReader, connection);
-				ch.processUserInput();
-				break;
-			case 3:
-				ch = new EnrolledCoursesChoice(inputReader, connection);
-				ch.processUserInput();
-				break;
-			case 4:
-				ch = new PrerequisiteChoice(inputReader, connection);
-				ch.processUserInput();
-				break;
-			case 5:
-				ch = new ClassDetailsChoice(inputReader, connection);
-				ch.processUserInput();
-				break;
-			case 6:
-				ch = new EnrollStudentChoice(inputReader, connection);
-				ch.processUserInput();
-				break;
-			case 7:
-				ch = new DropStudentChoice(inputReader, connection);
-				ch.processUserInput();
-				break;
-			case 8:
-				ch = new DeleteStudentChoice(inputReader, connection);
-				ch.processUserInput();
-				break;
-			case 9:
-				break;
-			default:
-				System.out.println("Invalid Choice!! Please enter a valid Choice!");
-				break;
-			}
+	public void processInput(int choice){
+		ChoiceAbstract ch = null;
+		switch(choice){
+		case 1:
+			ch = new DisplayTableChoice(inputReader,connection);
+			ch.processUserInput();
+			break;
+		case 2:
+			ch = new InsertStudentChoice(inputReader, connection);
+			ch.processUserInput();
+			break;
+		case 3:
+			ch = new EnrolledCoursesChoice(inputReader, connection);
+			ch.processUserInput();
+			break;
+		case 4:
+			ch = new PrerequisiteChoice(inputReader, connection);
+			ch.processUserInput();
+			break;
+		case 5:
+			ch = new ClassDetailsChoice(inputReader, connection);
+			ch.processUserInput();
+			break;
+		case 6:
+			ch = new EnrollStudentChoice(inputReader, connection);
+			ch.processUserInput();
+			break;
+		case 7:
+			ch = new DropStudentChoice(inputReader, connection);
+			ch.processUserInput();
+			break;
+		case 8:
+			ch = new DeleteStudentChoice(inputReader, connection);
+			ch.processUserInput();
+			break;
+		default:
+			System.out.println("Invalid Choice!! Please enter a valid Choice!");
+			break;
 		}
 		
 	}
