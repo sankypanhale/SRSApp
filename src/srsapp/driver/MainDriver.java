@@ -17,8 +17,8 @@ public class MainDriver {
 		OracleDataSource ds;
 		try {
 			BufferedReader sysIn = new BufferedReader(new InputStreamReader(System.in));
-			String userName = "spanhal1"; //getUserName(sysIn);
-			String passWord = "Shirdi123"; //getPassword(sysIn);
+			String userName = getUserName(sysIn);
+			String passWord = getPassword(sysIn);
 			ds = new oracle.jdbc.pool.OracleDataSource();
 			ds.setURL("jdbc:oracle:thin:@grouchoIII.cc.binghamton.edu:1521:ACAD111");
 			Connection conn = ds.getConnection(userName, passWord);
